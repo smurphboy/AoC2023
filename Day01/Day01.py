@@ -1,5 +1,3 @@
-import re
-
 with open('Day01/input.txt') as f:
     lines = [line for line in f]
 

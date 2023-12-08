@@ -1,16 +1,7 @@
 with open('Day05/input.txt') as f:
     rows = [line for line in f]
-
-seeds = list(rows[0].split(':')[1].strip().split(' '))
-newseeds = []
-for start, length in zip(*[iter(seeds)]*2):
-    for seed in range(int(start), int(start)+int(length)):
-        newseeds.append(seed)
-
-seeds = newseeds
-
-print(seeds)
-maxseed = max(seeds)
+oseeds = list(rows[0].split(':')[1].strip().split(' '))
+origseeds = [eval(i) for i in oseeds]
 zone = None
 soil = []
 fert = []
@@ -79,40 +70,10 @@ for row in rows:
 # print(sorted(temp, key=lambda two: two[1]))
 # print(sorted(humid, key=lambda two: two[1]))
 # print(sorted(loc, key=lambda two: two[1]))
+seeds = list(range(1,max(origseeds)))
 
 for idx, seed in enumerate(seeds):
-    for row in sorted(soil, key=lambda two: two[1]):
-        minsource = int(row[1])
-        maxsource = int(row[1]) + int(row[2])
-        # print(minsource, maxsource, mapels[2])
-
-        # print(seed)
-        if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
-            seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
-            break
-    # print('soil: ',seeds)
-
-    for row in sorted(fert, key=lambda two: two[1]):
-        minsource = int(row[1])
-        maxsource = int(row[1]) + int(row[2])
-        # print(minsource, maxsource, mapels[2])
-            # print(seed)
-        if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
-            seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
-            break
-    # print('fert: ',seeds)
-
-    for row in sorted(water, key=lambda two: two[1]):
-        minsource = int(row[1])
-        maxsource = int(row[1]) + int(row[2])
-        # print(minsource, maxsource, mapels[2])
-            # print(seed)
-        if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
-            seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
-            break
-    # print('water: ',seeds)
-
-    for row in sorted(light, key=lambda two: two[1]):
+    for row in sorted(loc, key=lambda two: two[1]):
         minsource = int(row[1])
         maxsource = int(row[1]) + int(row[2])
         # print(minsource, maxsource, mapels[2])
@@ -120,18 +81,6 @@ for idx, seed in enumerate(seeds):
         if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
             seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
             break
-    # print('light: ',seeds)
-
-    for row in sorted(temp, key=lambda two: two[1]):
-        minsource = int(row[1])
-        maxsource = int(row[1]) + int(row[2])
-        # print(minsource, maxsource, mapels[2])
-        # print(seed)
-        if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
-            seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
-            break
-    # print('temp: ',seeds)
-
     for row in sorted(humid, key=lambda two: two[1]):
         minsource = int(row[1])
         maxsource = int(row[1]) + int(row[2])
@@ -141,8 +90,7 @@ for idx, seed in enumerate(seeds):
             seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
             break
     # print('humid: ',seeds)
-
-    for row in sorted(loc, key=lambda two: two[1]):
+    for row in sorted(temp, key=lambda two: two[1]):
         minsource = int(row[1])
         maxsource = int(row[1]) + int(row[2])
         # print(minsource, maxsource, mapels[2])
@@ -150,5 +98,43 @@ for idx, seed in enumerate(seeds):
         if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
             seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
             break
+    # print('temp: ',seeds)
+    for row in sorted(light, key=lambda two: two[1]):
+        minsource = int(row[1])
+        maxsource = int(row[1]) + int(row[2])
+        # print(minsource, maxsource, mapels[2])
+        # print(seed)
+        if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
+            seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
+            break
+    # print('light: ',seeds)
+    for row in sorted(water, key=lambda two: two[1]):
+        minsource = int(row[1])
+        maxsource = int(row[1]) + int(row[2])
+        # print(minsource, maxsource, mapels[2])
+            # print(seed)
+        if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
+            seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
+            break
+    # print('water: ',seeds)
+    for row in sorted(fert, key=lambda two: two[1]):
+        minsource = int(row[1])
+        maxsource = int(row[1]) + int(row[2])
+        # print(minsource, maxsource, mapels[2])
+            # print(seed)
+        if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
+            seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
+            break
+    # print('fert: ',seeds)
+    for row in sorted(soil, key=lambda two: two[1]):
+        minsource = int(row[1])
+        maxsource = int(row[1]) + int(row[2])
+        # print(minsource, maxsource, mapels[2])
+        # print(seed)
+        if int(seeds[idx]) >= minsource and int(seeds[idx]) < maxsource:
+            seeds[idx] = int(seeds[idx]) + int(row[0]) - int(row[1])
+            break
+    # print('soil: ',seeds)
+    if seeds[idx] in origseeds:
+        print(seeds[idx])
 
-print(min(seeds))
